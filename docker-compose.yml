@@ -1,0 +1,22 @@
+version: '2.0'
+
+services:
+  nginx:
+    restart: always
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./.htpasswd:/etc/nginx/.htpasswd
+    depends_on:
+      - node1
+      - node2
+  node1:
+    build: node1
+    expose:
+      - 3000
+  node2:
+    build: node2
+    expose:
+      - 3000
